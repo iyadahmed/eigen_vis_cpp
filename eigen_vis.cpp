@@ -136,6 +136,7 @@ int main()
 
         EndDrawing();
     }
+    UnloadImage(image);
     UnloadTexture(texture);
     CloseWindow();
 
