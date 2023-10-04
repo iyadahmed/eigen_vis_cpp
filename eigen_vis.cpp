@@ -109,7 +109,7 @@ int main()
         }
     }
     auto t1 = std::chrono::high_resolution_clock::now();
-    std::cout << std::chrono::duration_cast<std::chrono::seconds>(t1 - t0).count() << std::endl;
+    std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() << std::endl;
 
     std::ofstream ofs("output.pgm", std::ofstream::binary);
     ofs << "P5\n"
