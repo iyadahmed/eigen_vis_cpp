@@ -136,10 +136,9 @@ int main()
 
         EndDrawing();
     }
+    ExportImage(image, "eigen_vis.png");
     UnloadImage(image);
     UnloadTexture(texture);
     CloseWindow();
-
-    ExportImage(image, "eigen_vis.png");
     return 0;
 }
