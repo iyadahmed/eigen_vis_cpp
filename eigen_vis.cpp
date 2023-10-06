@@ -52,7 +52,7 @@ int main()
 #pragma omp parallel for
         for (int i = 0; i < NUM_SAMPLES; i++)
         {
-            Eigen::ComplexEigenSolver<Eigen::MatrixXcd> ces;
+
             float t1 = uniform_dist(rng_engine);
             float t2 = uniform_dist(rng_engine);
 
@@ -113,7 +113,7 @@ int main()
             A(6, 5) = 0.3;
             A(6, 6) = -1i;
 
-            ces.compute(A, false);
+            Eigen::ComplexEigenSolver<Eigen::MatrixXcd> ces(A, false);
             for (const auto &v : ces.eigenvalues())
             {
                 double x = v.real();
