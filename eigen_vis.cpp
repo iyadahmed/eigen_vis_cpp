@@ -13,6 +13,9 @@
 
 #include <raylib.h>
 
+#define RAYGUI_IMPLEMENTATION
+#include <raygui.h>
+
 using namespace std::complex_literals;
 
 constexpr int WINDOW_WIDTH = 1280;
@@ -24,6 +27,9 @@ constexpr int TARGET_FPS = 60;
 constexpr int FRAME_TIME_POS_X = 10;
 constexpr int FRAME_TIME_POS_Y = 10;
 constexpr int FRAME_TIME_FONT_SIZE = 20;
+
+constexpr int MATRIX_SIZE_INPUT_POS_X = 40;
+constexpr int MATRIX_SIZE_INPUT_POS_Y = 40;
 
 constexpr float VIEWPORT_RANGE_START = -5;
 constexpr float VIEWPORT_RANGE_END = 5;
@@ -42,12 +48,15 @@ int main()
     Image image = GenImageColor(WINDOW_WIDTH, WINDOW_HEIGHT, RAYWHITE);
     Texture2D texture = LoadTextureFromImage(image);
 
+    int matrix_size = 7;
+
     SetTargetFPS(TARGET_FPS);
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         ImageClearBackground(&image, RAYWHITE);
+
         auto t0 = std::chrono::high_resolution_clock::now();
 #pragma omp parallel for
         for (int i = 0; i < NUM_SAMPLES; i++)
@@ -133,6 +142,8 @@ int main()
         auto frame_time = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
         DrawText(("Frame time: " + std::to_string(frame_time)).c_str(),
                  FRAME_TIME_POS_X, FRAME_TIME_POS_Y, FRAME_TIME_FONT_SIZE, BLUE);
+
+        GuiSpinner(Rectangle{MATRIX_SIZE_INPUT_POS_X, MATRIX_SIZE_INPUT_POS_Y, 100, 20}, "Matrix size", &matrix_size, 1, 7, true);
 
         EndDrawing();
     }
